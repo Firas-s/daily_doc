@@ -1,0 +1,10 @@
+{
+    "cloud_run_url": "https://yext-api-lzpbjnwv3q-nw.a.run.app",
+    "project_id": "flows-yext-dev",
+    "url_cf": "https://europe-west2-flows-yext-dev.cloudfunctions.net/alerts",
+    "gsheet": "1gzzdaC9oJGrYIZVffCl6Zc7J0JduY_Q6vOTTxL8CXas",
+    "link_gsheet": "https://docs.google.com/spreadsheets/d/1gzzdaC9oJGrYIZVffCl6Zc7J0JduY_Q6vOTTxL8CXas/edit#gid=0",
+    "df_project_id":"5207698541903872",
+    "secret_id":"yext-dataform-secret",
+    "environment":"staging"
+}

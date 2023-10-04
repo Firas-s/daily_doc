@@ -1,0 +1,59 @@
+{
+    "id": "meta.id",
+    "name": "name",
+    "store_type_1": "c_storetype",
+    "store_type_2": "c_clstoretype",
+    "address": {
+        "line1": "address.line1",
+        "line2": "address.line2",
+        "city": "address.city",
+        "postal_code": "address.postalCode",
+        "country_code": "address.countryCode"
+    },
+    "openings": "get_openings()",
+    "brands": "brands",
+    "products": "products",
+    "paymentOptions": "paymentOptions",
+    "info": {
+        "description": "featuredMessage.description",
+        "siret": "c_sIRET",
+        "phone": "mainPhone",
+        "email_magasin": "c_emailMagasin",
+        "responsable_region": "c_responsableDeRegion",
+        "timezone": "timezone",
+        "timeZoneUtcOffset": "timeZoneUtcOffset",
+        "isoRegionCode": "isoRegionCode",
+        "clickandcollect": "c_clickandcollect",
+        "parking": "c_parking",
+        "has_wheelchair_accessible_entrance": "str_bool()-has_wheelchair_accessible_entrance",
+        "pay_check": "str_bool()-pay_check",
+        "requires_cash_only": "str_bool()-requires_cash_only",
+        "requires_masks_staff": "str_bool()-requires_masks_staff",
+        "requires_masks_customers": "str_bool()-requires_masks_customers",
+        "requires_temperature_check_customers": "str_bool()-requires_temperature_check_customers",
+        "closed": "closed"
+    },
+    "geolocation":{
+        "latitude":"coord()-geocodedCoordinate.latitude",
+        "longitude": "coord()-geocodedCoordinate.longitude" 
+    },
+    "yextDisplayCoordinate":{
+        "latitude":"coord()-yextDisplayCoordinate.latitude",
+        "longitude": "coord()-yextDisplayCoordinate.longitude" 
+    },
+    "cityCoordinate": {
+        "latitude":"coord()-cityCoordinate.latitude",
+        "longitude": "coord()-cityCoordinate.longitude" 
+    },
+    "oneStock" : "oneStock()",
+    "logo": "logo.image.url",
+    "photo":  "get_image()",
+    "facebook": {
+        "name": "facebookName",
+        "url":  "facebookPageUrl",
+        "parent_pageid": "facebookParentPageId",
+        "vanity_url": "facebookVanityUrl",
+        "facebookCoverPhoto": "facebookCoverPhoto.url"
+    }
+    
+}

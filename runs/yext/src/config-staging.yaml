@@ -1,0 +1,5 @@
+chat: https://chat.googleapis.com/v1/spaces/AAAA0bV_4s0/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=ie9f08mlvxwEWpLVEDQA1AIhkK4Sd33WXytjNq_KCAk%3D
+bigquery:
+  project: flows-yext-dev
+  dataset: ingestion
+  table: i_stores

@@ -1,0 +1,83 @@
+steps:
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args:
+    - 'cp'
+    - "workflows/*.json"
+    - 'gs://flows-yext-dev-source'
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'eu.gcr.io/flows-yext-dev/yext', '-f', 'runs/yext/CloudRun', '.']
+  
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'eu.gcr.io/flows-yext-dev/yext']
+  
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: 
+    - 'run' 
+    - 'deploy'
+    - 'yext-api'
+    - '--image'
+    - 'eu.gcr.io/flows-yext-dev/yext'
+    - '--region'
+    - 'europe-west2'
+    - '--project'
+    - 'flows-yext-dev'
+    - '--no-allow-unauthenticated'
+    - '--platform'
+    - 'managed' 
+    - '--ingress'
+    - 'internal'
+    - '--timeout'
+    - '10m'
+    - '--set-env-vars'
+    - "ENV=staging"
+    - '--memory'
+    - '4G'
+    - '--set-secrets'
+    - "YEXT_BEARER=projects/629516156638/secrets/YEXT_BEARER/versions/latest"
+    - '--service-account'
+    - 'sa-cloud-run-instance@flows-yext-dev.iam.gserviceaccount.com'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'workflows'
+    - 'deploy'
+    - 'yext'
+    - '--project'
+    - 'flows-yext-dev'
+    - '--location'
+    - 'europe-west1'
+    - '--service-account'
+    - 'sa-workflows-instance@flows-yext-dev.iam.gserviceaccount.com'
+    - '--source'
+    - 'workflows/yext.yaml'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: 
+    - 'functions' 
+    - 'deploy'
+    - 'alerts'
+    - '--region'
+    - 'europe-west2'
+    - '--project'
+    - 'flows-yext-dev'
+    - '--entry-point'
+    - 'alert'
+    - '--runtime'
+    - 'python39'
+    - '--service-account'
+    - 'sa-function-instance@flows-yext-dev.iam.gserviceaccount.com'
+    - '--source'
+    - 'functions/alerts'
+    - '--trigger-http'
+
+images:
+  - eu.gcr.io/flows-yext-dev/yext
+  
+options:
+    logging: CLOUD_LOGGING_ONLY
+  

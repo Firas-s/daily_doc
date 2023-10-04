@@ -1,0 +1,846 @@
+[
+    {
+      "name": "id",
+      "mode": "REQUIRED",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "name",
+      "mode": "NULLABLE",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "store_type_1",
+      "mode": "NULLABLE",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "store_type_2",
+      "mode": "NULLABLE",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "address",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "line1",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "line2",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "city",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "postal_code",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "country_code",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "openings",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "total_hours",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "monday",
+          "mode": "NULLABLE",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "tuesday",
+          "mode": "NULLABLE",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "wednesday",
+          "mode": "NULLABLE",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "thursday",
+          "mode": "NULLABLE",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "friday",
+          "mode": "NULLABLE",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "saturday",
+          "mode": "NULLABLE",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "sunday",
+          "mode": "NULLABLE",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "holidays",
+          "mode": "REPEATED",
+          "type": "RECORD",
+          "description": null,
+          "fields": [
+            {
+              "name": "date",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "openings",
+              "mode": "REPEATED",
+              "type": "RECORD",
+              "description": null,
+              "fields": [
+                {
+                  "name": "start",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                },
+                {
+                  "name": "end",
+                  "mode": "NULLABLE",
+                  "type": "STRING",
+                  "description": null,
+                  "fields": []
+                }
+              ]
+            },
+            {
+              "name": "hours",
+              "mode": "NULLABLE",
+              "type": "STRING",
+              "description": null,
+              "fields": []
+            },
+            {
+              "name": "is_closed",
+              "mode": "NULLABLE",
+              "type": "BOOLEAN",
+              "description": null,
+              "fields": []
+            }
+          ]
+        },
+        {
+          "name": "total_hours_Holidays",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "brands",
+      "mode": "REPEATED",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "products",
+      "mode": "REPEATED",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "paymentOptions",
+      "mode": "REPEATED",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "info",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "description",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "siret",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "phone",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "email_magasin",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "responsable_region",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "timezone",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "timeZoneUtcOffset",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "isoRegionCode",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "clickandcollect",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "parking",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "has_wheelchair_accessible_entrance",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "pay_check",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "requires_cash_only",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "requires_masks_staff",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "requires_masks_customers",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "requires_temperature_check_customers",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "closed",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "geolocation",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "latitude",
+          "mode": "NULLABLE",
+          "type": "FLOAT",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "longitude",
+          "mode": "NULLABLE",
+          "type": "FLOAT",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "yextDisplayCoordinate",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "latitude",
+          "mode": "NULLABLE",
+          "type": "FLOAT",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "longitude",
+          "mode": "NULLABLE",
+          "type": "FLOAT",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "cityCoordinate",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "latitude",
+          "mode": "NULLABLE",
+          "type": "FLOAT",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "longitude",
+          "mode": "NULLABLE",
+          "type": "FLOAT",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "oneStock",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "c_centre_ville_onestock",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_OneStockAdyen_merchant_account",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_OneStockCarrier_pickup",
+          "mode": "REPEATED",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_OneStockCfs_active",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_email_directeur_region_onestock",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_OneStockOis_active",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_OneStockRc_active",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_pays_magasin_onestock",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_OneStockStore_priority",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_OneStockSfs_active",
+          "mode": "NULLABLE",
+          "type": "BOOLEAN",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_succursale_onestock",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_type_onestock",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "c_usine_onestock",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "logo",
+      "mode": "NULLABLE",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "photo",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "googleProfilePhoto",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "image",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "image2",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        }
+      ]
+    },
+    {
+      "name": "facebook",
+      "mode": "NULLABLE",
+      "type": "RECORD",
+      "description": null,
+      "fields": [
+        {
+          "name": "name",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "url",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "parent_pageid",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "vanity_url",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        },
+        {
+          "name": "facebookCoverPhoto",
+          "mode": "NULLABLE",
+          "type": "STRING",
+          "description": null,
+          "fields": []
+        }
+      ]
+    }
+  ]

@@ -1,0 +1,17 @@
+config {
+  type: "table",
+  schema: "monitoring",
+  description: "Monitoring Control Rules"
+}
+
+SELECT * 
+From `flows-yext-dev.gold.Stores_full`
+WHERE Latitude is null
+or Latitude = 0
+or CAST(Latitude as STRING) =""
+or Longitude is null
+or Longitude = 0
+or CAST(Longitude as STRING) =""
+or Total_Openings_Hours is null
+or CAST(Total_Openings_Hours AS STRING) = ""
+AND Store_Is_Closed <> TRUE

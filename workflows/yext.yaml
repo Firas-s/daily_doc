@@ -1,0 +1,241 @@
+main:
+  params: [input]
+  steps:
+    - init:
+        assign:
+            - query:  SELECT * from monitoring.monitoring
+    
+    - load_config:
+        call: ConfigLoader
+        args: 
+          input: ${input}
+        result: configuration
+
+    - cloud_run:
+        call: CloudRun
+        args:
+          url: ${configuration.cloud_run_url}
+          content: {}
+        result: run_result
+
+    - dataform_call:
+        call: Dataform
+        args:
+            project_id: ${configuration.project_id}
+            df_project_id: ${configuration.df_project_id}
+            secret_id: ${configuration.secret_id}
+            environment: ${configuration.environment}
+        result: dataform_params
+
+    - copy_to_bi:
+        call: BQCopy
+        args:
+            project_source: ${configuration.project_id}
+            dataset_source: "gold"
+            table_source: "Stores_full"
+            project_sink: "bi-chantelle"
+            dataset_sink: "Datamart_YEXT"
+            table_sink: "Stores_full"
+        result: bq_result
+
+    - launch_query:
+        call: googleapis.bigquery.v2.jobs.query
+        args:
+              projectId: ${configuration.project_id}
+              body:
+                  useLegacySql: false
+                  query: ${query}
+
+        result: query_monitoring
+
+    - Conrole_rules:
+        switch:
+            - condition: ${len(query_monitoring.rows) > 0}
+              next: Launch_cf
+            - condition: ${len(query_monitoring.rows) == 0}
+              next: control
+    
+    - control:
+        return: "OK"
+
+    - Launch_cf:
+        call: http.post
+        args:
+            url: ${configuration.url_cf}
+            auth:
+                type: OIDC
+            body: {
+                    "stores": "${len(query_monitoring.rows)}",
+                    "gsheet": "${configuration.link_gsheet}"
+                  }
+
+        result: param_cf
+ 
+    - final:
+        return: ${configuration}
+
+###################################################################################################
+
+ConfigLoader:
+  params: [input]
+  steps:
+  - checkInputExists:
+      switch:
+        - condition: ${input != null}
+          next: checkConfigInput
+      next: raise_error
+  - checkConfigInput:
+      switch:
+        - condition: ${"config_location" in input}
+          assign:
+            - config_location: ${input.config_location}
+            - bucket_location: ${input.bucket_location}
+          next: read_from_gcs
+      next: raise_error
+  - raise_error:
+      raise: "MISSING INPUT"
+  - read_from_gcs:
+      call: http.get
+      args:
+          url: ${"https://storage.googleapis.com/download/storage/v1/b/" + bucket_location + "/o/" + config_location}
+          auth:
+              type: OAuth2
+          query:
+              alt: media
+      result: env_file_json_content
+  - return_content:
+      return: ${env_file_json_content.body}
+
+###################################################################################################
+
+CloudRun:
+  params: [url, content]
+  steps:
+  - cloud_run_call:
+      call: http.post
+      args:
+          url: ${url}
+          auth:
+            type: OIDC
+          body:
+            input: ${content}
+      result: floor_result
+  - return_content:
+      return: ${floor_result}
+
+###################################################################################################
+
+BQCopy:
+  params: [project_source, dataset_source, table_source, project_sink, dataset_sink, table_sink]
+  steps: 
+  - bq_copy:
+      call: googleapis.bigquery.v2.jobs.insert
+      args:
+        projectId: ${project_source}
+        body:
+          configuration:
+            query:
+              query: ${"select * from `" + dataset_source + "." + table_source + "`"}
+              destinationTable:
+                projectId: ${project_sink}
+                datasetId: ${dataset_sink}
+                tableId: ${table_sink}
+              create_disposition: "CREATE_IF_NEEDED"
+              write_disposition: "WRITE_TRUNCATE"
+              allowLargeResults: true
+              useLegacySql: false
+
+Dataform:
+  params: [project_id, df_project_id, secret_id, environment]
+  steps:
+  - fetch_dataform_secret:
+      call: googleapis.secretmanager.v1.projects.secrets.versions.accessString
+      args:
+          secret_id: ${secret_id}
+          project_id: ${project_id}
+      result: df_bearer
+  - call_dataform:
+      call: http.post
+      args:
+          url: ${"https://api.dataform.co/v1/project/" + df_project_id + "/run"}
+          headers:
+              Authorization: ${"Bearer " + df_bearer}
+          body:
+              environmentName: ${environment}
+      result: dataform_job
+  - dataform_status:
+      call: http.get
+      args:
+          url: ${"https://api.dataform.co/v1/project/" + df_project_id + "/run/" + dataform_job.body.id}
+          headers:
+              Authorization: ${"Bearer " + df_bearer}
+      result: dataform_poll
+  - check_dataform:
+      switch:
+          - condition: ${dataform_poll.body.status == "SUCCEEDED" OR dataform_poll.body.status == "SUCCESSFUL"}
+            next: raise_success
+          - condition: ${dataform_poll.body.status == "FAILED"}
+            next: raise_error
+  - wait:
+      call: sys.sleep
+      args:
+          seconds: 5
+      next: dataform_status 
+  - final:
+      return: ${dataform_poll}
+  - raise_error:
+      raise: "FAILED DATAFORM PIPELINE"
+  - raise_success:
+      return: "SUCCESS DATAFORM PIPELINE"
+
+
+
+UpdateTemporarySheet:
+  params: [projectid,sheetId, query]
+  steps:
+  - runQuery:
+        call: googleapis.bigquery.v2.jobs.query
+        args:
+            projectId: ${projectid}
+            body:
+                useLegacySql: false
+                query: ${query}
+        result: queryResult
+
+
+  - init_header_row:
+            assign:
+            - rows:
+                - ["id", "name", "line"]
+  - process_query_result:
+            for:
+                value: row
+                in: ${queryResult.rows}
+                steps:
+                - process_each_row:
+                    assign:
+                    - id: ${row.f[0].v}
+                    - name: ${row.f[1].v}
+                    - line: ${row.f[2].v}
+                    - row: ["${id}", "${name}", "${line}"]
+                    - rows: ${list.concat(rows, row)}
+
+  - clear_existing_values:
+            call: googleapis.sheets.v4.spreadsheets.values.clear
+            args:
+                range: "monitoring-yext"
+                spreadsheetId: ${sheetId}
+            result: clearResult
+
+  - update_sheet:
+            call: googleapis.sheets.v4.spreadsheets.values.update
+            args:
+                range: ${"monitoring-yext!A1:C"}
+                spreadsheetId: ${sheetId}
+                valueInputOption: RAW
+                body:
+                    majorDimension: "ROWS"
+                    values: ${rows}
+            result: updateResult
+  - returnResult:
+            return: ${updateResult}

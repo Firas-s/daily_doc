@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+        "@dataform/core": "1.19.0",
+        "flat": "^5.0.2"
+    }
+}

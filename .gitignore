@@ -1,0 +1,6 @@
+__pycache__
+*.csv
+*.egg-info
+terraform/.terraform*
+terraform/plan.tfplan
+*.zip

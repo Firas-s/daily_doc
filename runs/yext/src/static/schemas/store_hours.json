@@ -1,0 +1,641 @@
+[
+    {
+        "name": "id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "name",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "store_type_1",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "store_type_2",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "address",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "line1",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "line2",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "city",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "postal_code",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "country_code",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "openings",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "total_hours",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "monday",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            {
+                "name": "tuesday",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            {
+                "name": "wednesday",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            {
+                "name": "thursday",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            {
+                "name": "friday",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            {
+                "name": "saturday",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            {
+                "name": "sunday",
+                "type": "RECORD",
+                "mode": "NULLABLE",
+                "fields": [
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            {
+                "name": "holidays",
+                "type": "RECORD",
+                "mode": "REPEATED",
+                "fields": [
+                    {    
+                        "name": "date",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "openings",
+                        "type": "RECORD",
+                        "mode": "REPEATED",
+                        "fields": [
+                            {
+                                "name": "start",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            },
+                            {
+                                "name": "end",
+                                "type": "STRING",
+                                "mode": "NULLABLE"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "hours",
+                        "type": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "is_closed",
+                        "type": "BOOLEAN",
+                        "mode": "NULLABLE"
+                    }
+                    
+
+                ]
+
+            },
+            {
+                "name": "total_hours_Holidays",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+  
+    {
+        "name": "brands",
+        "type": "STRING",
+        "mode": "REPEATED"
+    },
+    {
+        "name": "products",
+        "type": "STRING",
+        "mode": "REPEATED"
+    },
+    {
+        "name": "paymentOptions",
+        "type": "STRING",
+        "mode": "REPEATED"
+    },
+    {
+        "name": "info",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "description",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "siret",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "phone",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "email_magasin",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "responsable_region",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "timezone",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "timeZoneUtcOffset",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "isoRegionCode",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "clickandcollect",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "parking",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "has_wheelchair_accessible_entrance",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "pay_check",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "requires_cash_only",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "requires_masks_staff",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "requires_masks_customers",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "requires_temperature_check_customers",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "closed",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "geolocation",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "latitude",
+                "type": "FLOAT",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "longitude",
+                "type": "FLOAT",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "yextDisplayCoordinate",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "latitude",
+                "type": "FLOAT",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "longitude",
+                "type": "FLOAT",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "cityCoordinate",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "latitude",
+                "type": "FLOAT",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "longitude",
+                "type": "FLOAT",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "oneStock",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "c_centre_ville_onestock",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_OneStockAdyen_merchant_account",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_OneStockCarrier_pickup",
+                "type": "STRING",
+                "mode": "REPEATED"
+            },
+            {
+                "name": "c_OneStockCfs_active",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_email_directeur_region_onestock",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_OneStockOis_active",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_OneStockRc_active",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_pays_magasin_onestock",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_OneStockStore_priority",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_OneStockSfs_active",
+                "type": "BOOLEAN",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_succursale_onestock",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_type_onestock",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "c_usine_onestock",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "logo",
+        "type": "STRING",
+        "mode": "NULLABLE"
+    },
+    {
+        "name": "photo",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "googleProfilePhoto",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "image",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "image2",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    {
+        "name": "facebook",
+        "type": "RECORD",
+        "mode": "NULLABLE",
+        "fields": [
+            {
+                "name": "name",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "url",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "parent_pageid",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "vanity_url",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "facebookCoverPhoto",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    }
+]

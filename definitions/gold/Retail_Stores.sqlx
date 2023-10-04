@@ -1,0 +1,229 @@
+config {
+  type: "view",
+  schema: "gold"
+}
+
+WITH TLIBELSAP_ENTREPRENEUR as																
+(SELECT																									
+TYPCOD,																									
+CODE,																									
+CODLANG,																									
+LIBCOURT,																									
+LIBMOYEN																									
+from ${ref("CHAMADE_TLIBELSAP")} TLIBELSAP																									
+where CODLANG = "X" and typcod = "CLIRET"																									
+),																									
+																									
+TLIBELSAP_COMM_ORG as																									
+(SELECT																									
+TYPCOD,																									
+CODE,																									
+CODLANG,																									
+LIBCOURT,																									
+LIBMOYEN																									
+from ${ref("CHAMADE_TLIBELSAP")} TLIBELSAP																									
+where CODLANG = "E" and typcod = "ORGCOMR"																									
+),																									
+																									
+TLIBELSAP_COUNTRY as																									
+(SELECT																									
+TYPCOD,																									
+CODE,																									
+CODLANG,																									
+LIBCOURT,																									
+LIBMOYEN																									
+from ${ref("CHAMADE_TLIBELSAP")} TLIBELSAP																									
+where CODLANG = "E" and typcod = "PAYS"																									
+),																									
+																									
+CHAMADE_UR_DATASET as																									
+(SELECT																									
+ENT.CODENT as Store_Code,																									
+ENT.DSCENT as Store_Name,																									
+'Darjeeling' as Retail_Chain,																									
+case when																									
+ENT.CHAMP3="SANS" then null else																									
+cast(ENT.CHAMP3 as DECIMAL) end as Surface,																									
+/* Case when																									
+(ENT.CHAMP3 = 0 or ISNULL(ENT.CHAMP3)) then 'N/A'																									
+when (ENT.CHAMP3 < 120) then 'S (< 120 m2)'																									
+when (ENT.CHAMP3 < 160) then 'M (120-159 m2)'																									
+else 'L (>= 160 m2)' end as Store_Size, */																									
+case when																									
+ENT.CHAMP3="SANS" then null else																									
+cast(ENT.CHAMP3 as DECIMAL) end as Store_Size,																									
+ENT.CODCCP as Concept_Version,																									
+ENT.ZONADR1 as Address_1,																									
+ENT.ZONADR2 as Address_2,																									
+LEFT(ENT.ZONPOS, 5) as ZIP_Code,																									
+SPLIT(ENT.ZONPOS, " ")[ORDINAL(1)] as Country_Code,																									
+CODZG2 as Country,																									
+ENT.DATOUV as Opening_Date,																									
+ENT.DATFER as Closure_Date,																									
+IF(ENT.DATFER is not null or ENT.DATFER > CURRENT_DATE(),false,true) as Opening_Status,																									
+ENT.CODANM as Sales_Support_Code,																									
+ANI.NOMANM as Sales_Support,																									
+GRP.GRPDEB as Flow_Group,																									
+LEFT(GRP.GRPDEB , 1) as Modularity,																									
+Case when																									
+ENT.CODRGN = 'FWEB' then 'Web'																									
+When ENT.CHAMP5= 'Succursale' then 'Branch'																									
+When ENT.CHAMP5='Affiliée' then 'Affiliated'																									
+Else 'Others' end as Business_Model,																									
+Null as Entrepreneur_Code,																									
+Null as Entrepreneur,																									
+Case when																									
+ENT.CODRGN = 'FWEB' then 'Webshop'																									
+When ENT.TYPMAG = 'CC' then 'Mall'																									
+When ENT.TYPMAG = 'CV' then 'City Center'																									
+When ENT.TYPMAG = 'US' then 'Outlet'																									
+Else 'Warehouse' end as Entity_Type,																									
+IF(ENT.TYPMAG = 'US', true, False) as Is_Outlet,																									
+Null as Commercial_Organisation_Code,																									
+"Delta Lingerie" as Commercial_Organisation_Label,																									
+																									
+																									
+FROM ${ref("DARJEELING_TENTITE")} ENT																									
+--251 rows																									
+inner join ${ref("DARJEELING_TANIMAT")} ANI on ENT.CODANM=ANI.CODANM																									
+inner join ${ref("DARJEELING_TGRPMAG")} GRP on GRP.GRPMAG=ENT.GRPMAG																									
+																									
+																									
+UNION ALL																									
+																									
+																									
+SELECT																									
+																									
+																									
+STO.CODE as Store_Code,																									
+STO.NAME as Store_Name,																									
+IF(LEFT(STO.CODE, 2) = "RD", "Femilet", IF(LEFT(STO.CODE, 1) = "R", "CL","Livera")) as Retail_Chain,																									
+cast(TMAG.SURFVNT as DECIMAL) as Surface,																									
+cast(TMAG.SURFVNT as DECIMAL)																									
+/* Si ( TENTITE.CHAMP3 = 0 or ISNULL(TENTITE.CHAMP3) ) Alors 'N/A'																									
+Sinon Si ( TENTITE.CHAMP3 < 120 ) Alors 'S (< 120 m2)'																									
+Sinon Si ( TENTITE.CHAMP3 < 160 ) Alors 'M (120-159 m2)'																									
+Sinon 'L (>= 160 m2)' */																									
+as Store_Size,																									
+Null as Concept_Version,																									
+TMAG.RUE as Address_1,																									
+Null as Address_2,																									
+TMAG.CODPOSTAL as ZIP_Code,																									
+TMAG.CODPAYS as Country_Code,																									
+TLIBELSAP_COUNTRY.LIBMOYEN as Country,																									
+TMAG.DATOUV as Opening_Date,																									
+TMAG.DATCLO as Closure_Date,																									
+IF(TMAG.DATCLO is not null or TMAG.DATCLO > CURRENT_DATE(),false,true) as Opening_Status,																									
+DAT.DETAIL_CODE as Sales_Support_Code,																									
+DAT.DETAIL_CODE as Sales_Support,																									
+Null as Flow_Group,																									
+Null as Modularity,																									
+/*UR_TTICKETCOM_ENTITE.CODMODLAR as Modularity,*/																									
+Case when																									
+(STO.TYPE_CODE = 'WEB') then 'Web'																									
+When (STO.TYPE_CODE in ('LIV', 'SUCC' )) then 'Branch'																									
+When (STO.TYPE_CODE in ('FRA')) then 'Concession'																									
+When (STO.TYPE_CODE in ('AFPL')) then 'Affiliated'																									
+Else 'Others' end as Business_Model,																									
+TMAG.CODFRNCH as Entrepreneur_Code,																									
+TLIBELSAP_ENTREPRENEUR.LIBMOYEN as Entrepreneur,																									
+Case when																									
+(STO.TYPE_CODE = 'WEB') then 'Webshop'																									
+When (STO.TYPE_CODE in ('LIV', 'SUCC', 'FRA', 'AFPL')) then 'Store'																									
+Else 'Others' end as Entity_Type,																									
+False as Is_Outlet,																									
+TMAG.CODORGCOM as Commercial_Organisation_Code,																									
+TLIBELSAP_COMM_ORG.LIBMOYEN as Commercial_Organisation_Label,																									
+																									
+																									
+FROM ${ref("CHAMADE_TMAGRETAIL")} TMAG																									
+inner join ${ref("STORE")} STO on TMAG.CODMAG=STO.CODE																									
+left join ${ref("STORE_DATA")} DAT on cast(DAT.STORE_ID as string)=STO.CODE																									
+Left join TLIBELSAP_ENTREPRENEUR on TLIBELSAP_ENTREPRENEUR.CODE=TMAG.CODFRNCH																									
+Left join TLIBELSAP_COUNTRY on TLIBELSAP_COUNTRY.CODE=TMAG.CODPAYS																									
+Left join TLIBELSAP_COMM_ORG on TLIBELSAP_COMM_ORG.CODE=TMAG.CODORGCOM																									
+)																									
+																									
+																									
+SELECT																									
+CHAM_UR.Store_Code,																									
+CHAM_UR.Store_Name,																									
+CHAM_UR.Retail_Chain,																									
+CHAM_UR.Surface,																									
+CHAM_UR.Store_Size,																									
+CHAM_UR.Concept_Version,																									
+CHAM_UR.Address_1,																									
+CHAM_UR.Address_2,																									
+CHAM_UR.ZIP_Code,																									
+CHAM_UR.Country_Code,																									
+CHAM_UR.Country,																									
+CHAM_UR.Opening_Date,																									
+CHAM_UR.Closure_Date,																									
+CHAM_UR.Opening_Status,																									
+CHAM_UR.Sales_Support_Code,																									
+CHAM_UR.Sales_Support,																									
+CHAM_UR.Flow_Group,																									
+CHAM_UR.Modularity,																									
+CHAM_UR.Business_Model,																									
+CHAM_UR.Entrepreneur_Code,																									
+CHAM_UR.Entrepreneur,																									
+CHAM_UR.Entity_Type,																									
+CHAM_UR.Is_Outlet,																									
+YEXT.Latitude,																									
+YEXT.Longitude,																									
+YEXT.Total_Openings_Hours,																									
+YEXT.Total_Openings_Holidays_Hours,																									
+YEXT.Monday_Start,																									
+YEXT.Monday_End,																									
+YEXT.Monday_Hours,																									
+YEXT.Monday_Is_Closed,																									
+YEXT.Tuesday_Start,																									
+YEXT.Tuesday_End,																									
+YEXT.Tuesday_Hours,																									
+YEXT.Tuesday_Is_Closed,																									
+YEXT.Wednesday_Start,																									
+YEXT.Wednesday_End,																									
+YEXT.Wednesday_Hours,																									
+YEXT.Wednesday_Is_Closed,																									
+YEXT.Thursday_Start,																									
+YEXT.Thursday_End,																									
+YEXT.Thursday_Hours,																									
+YEXT.Thursday_Is_Closed,																									
+YEXT.Friday_Start,																									
+YEXT.Friday_End,																									
+YEXT.Friday_Hours,																									
+YEXT.Friday_Is_Closed,																									
+YEXT.Saturday_Start,																									
+YEXT.Saturday_End,																									
+YEXT.Saturday_Hours,																									
+YEXT.Saturday_Is_Closed,																									
+YEXT.Sunday_Start,																									
+YEXT.Sunday_End,																									
+YEXT.Sunday_Hours,																									
+YEXT.Sunday_Is_Closed,																									
+YEXT.Holidays_Start,																									
+YEXT.Holidays_End,																									
+YEXT.Holidays_Hours,																									
+YEXT.Holidays_Is_Closed,																									
+YEXT.Store_Is_Closed,																									
+YEXT.Phone,																									
+YEXT.Email_Store,																									
+YEXT.Timezone,																									
+YEXT.Region_Code,																									
+YEXT.Click_Collect,																									
+YEXT.Parking,																									
+YEXT.Wheelchair_Entrance,																									
+YEXT.Downtown,																									
+YEXT.Adyen_Merchant_Account,																									
+YEXT.Email_Region_Director,																									
+YEXT.Ois_Active,																									
+YEXT.Ereservation,																									
+YEXT.Store_Priority_Code,																									
+YEXT.Ship_From_Store,																									
+YEXT.Store_Priority																									
+																									
+																									
+FROM CHAMADE_UR_DATASET CHAM_UR																									
+LEFT JOIN `bi-chantelle.Datamart_YEXT.Stores_full` YEXT on CHAM_UR.Store_Code=YEXT.id																									
+																									
+																										

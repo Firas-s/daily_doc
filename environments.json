@@ -1,0 +1,25 @@
+{
+    "environments": [
+        {
+            "name": "production",
+            "configOverride": {
+                "defaultDatabase": "flows-yext-prod"
+            },
+            "gitRef": "master"
+        },
+        {
+            "name": "staging",
+            "configOverride": {
+                "defaultDatabase": "flows-yext-dev"
+            },
+            "gitRef": "staging"
+        },
+        {
+            "name": "development",
+            "configOverride": {
+                "defaultDatabase": "flows-yext-dev"
+            },
+            "gitRef": "development"
+        }
+    ]
+}
